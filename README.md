@@ -45,11 +45,8 @@ python replicator.py set effect=cs cs.colors=ff0000,ff8000,ffff00,00ff00,00ffff 
 python replicator.py set effect=cs cs.colors=ff0000,ff8000,ffff00,00ff00,00ffff --apply # write
 python replicator.py set lights=toggle poll=1000 dpi4=3200 --apply
 python replicator.py restore reticos_backup_XXXX.bin --apply
-python bkm.py halloween.bkm                            # decode a vendor profile file, prints a replicator.py command
 python selftest.py --list
 ```
-
-![bkm.py decoding a vendor profile and printing the replicator.py command](docs/bkm.png)
 
 **Linux:** no pip install. Either install the udev rule (`sudo cp 70-reticos.rules /etc/udev/rules.d/`,
 `sudo udevadm control --reload-rules`, replug the mouse) or use sudo:
@@ -60,6 +57,17 @@ sudo env PYTHONPATH=linux python3 replicator.py
 
 `python replicator.py` with no arguments never writes. Without `--apply`, `set` and `restore` are dry runs.
 The keys for `set` are listed at the top of `replicator.py`.
+
+### Vendor profiles (.bkm)
+
+`bkm.py` reads a profile exported by the Reticos software and prints its settings plus the matching
+`replicator.py set` command. It only reads the file, needs no mouse and works the same on Windows and Linux.
+
+```
+python bkm.py halloween.bkm
+```
+
+![bkm.py decoding a vendor profile and printing the replicator.py command](docs/bkm.png)
 
 ## Protocol in short
 

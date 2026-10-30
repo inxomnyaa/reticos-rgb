@@ -15,6 +15,14 @@ official driver. Groundwork for OpenRGB support.
 > **Status:** tested on one mouse (Windows 10 and Bazzite). Writes replace the whole profile on the mouse.
 > Every write saves a backup first, but use at your own risk. Not affiliated with Speedlink or Sinowealth.
 
+## Videos
+
+Proof of concept on the real mouse, showing the protocol working:
+
+- https://youtube.com/shorts/H0NoP6xH36E
+- https://youtube.com/shorts/dL6Rb53NHR8
+- https://youtube.com/shorts/V4-nwEO19VA
+
 ## What it can set
 
 Effects (1 Colorful streaming, 2 Steady, 3 Breathing, 4 Tail, 5 Neon, 6 Colorful steady, 7 Flicker,

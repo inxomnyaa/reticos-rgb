@@ -1,0 +1,2 @@
+# Speedlink Reticos (Sinowealth 258a:003b): let the logged-in user talk to the mouse hidraw nodes
+SUBSYSTEM=="hidraw", ATTRS{idVendor}=="258a", ATTRS{idProduct}=="003b", TAG+="uaccess"

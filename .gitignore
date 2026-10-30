@@ -1,0 +1,14 @@
+# local backups and captures
+reticos_backup_*.bin
+*.pcap
+*.pcapng
+*.bkm
+*.zip
+
+# logs, old versions, scratch screenshots
+log*.txt
+2026-*.png
+
+# python
+__pycache__/
+*.pyc

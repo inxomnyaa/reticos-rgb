@@ -2,13 +2,14 @@
 
 Control the on-board profile of the **Speedlink RETICOS RGB Gaming Mouse** (SL-680011-BK, hardware rev "V3")
 from Python, on Windows and Linux, without the vendor driver. Reverse-engineered from a USB capture of the
-official driver. Groundwork for OpenRGB support.
+official driver. Also the basis for an [OpenRGB controller](#openrgb).
 
 - Mouse: [Speedlink RETICOS RGB](https://speedlink.com/en/RETICOS-RGB-Gaming-Mouse-black/SL-680011-BK)
   (USB `258a:003b`, "SINOWEALTH Wired Gaming Mouse", sensor id 0x3325 per the driver config)
 - Vendor driver: version 1.0.4 from the product page's downloads. It is a generic Sinowealth "BY-COMBO2" utility.
   Not included in this repo.
-- Planned target: [OpenRGB](https://gitlab.com/CalcProgrammer1/OpenRGB)
+- OpenRGB: working controller on the [`speedlink_reticos` branch](https://gitlab.com/inxomnyaa/OpenRGB/-/tree/speedlink_reticos)
+  of my fork, not merged upstream yet (see [OpenRGB issue #6031](https://gitlab.com/CalcProgrammer1/OpenRGB/-/work_items/6031))
 
 ![replicator.py showing the mouse profile as a color tree](docs/replicator.png)
 
@@ -91,13 +92,38 @@ python bkm.py halloween.bkm
 - Settings from the Reticos app that are not on the mouse (sensitivity, scroll speed, pointer precision,
   double-click speed) are plain Windows mouse settings.
 
+## OpenRGB
+
+The [`speedlink_reticos` branch](https://gitlab.com/inxomnyaa/OpenRGB/-/tree/speedlink_reticos) of my OpenRGB fork
+adds the Reticos as a variant of OpenRGB's existing Sinowealth (Glorious Model O) mouse controller. Same protocol
+family; the differences are RGB instead of RBG color order, 5 LEDs, the lights on/off byte and two extra effects.
+
+- Detected as "Speedlink Reticos", one zone with 5 LEDs (Front, Scroll Wheel, Middle, Rear, Logo)
+- Modes: Custom (per-LED, effect 6), Static, Off, Breathing (7 colors), Rainbow Wave, Spectrum Cycle, Tail,
+  Flashing (2 colors), Stars, Wave
+- Reads the profile stored on the mouse at startup, so every mode starts with the mouse's own colors and speeds
+- Off only switches the lights off and keeps the stored effect
+- Skips the write when the mouse already holds the same profile
+- DPI and polling rate are not part of OpenRGB; use `replicator.py` for those
+
+Tested on Linux (Bazzite). It is not in upstream OpenRGB yet: [issue #6031](https://gitlab.com/CalcProgrammer1/OpenRGB/-/work_items/6031)
+asks the maintainers whether they want a merge request for it. To try it now, build the branch, for example in a
+Fedora distrobox:
+
+```
+distrobox create --name openrgb-dev --image registry.fedoraproject.org/fedora-toolbox:44
+distrobox enter openrgb-dev -- sudo dnf install -y gcc-c++ make libusbx-devel qt6-qtbase-devel qt6-linguist hidapi-devel mbedtls-devel pkgconf git
+git clone -b speedlink_reticos https://gitlab.com/inxomnyaa/OpenRGB.git && mkdir OpenRGB/build && cd OpenRGB/build
+distrobox enter openrgb-dev -- bash -c 'qmake6 ../OpenRGB.pro && make -j$(nproc)'
+distrobox enter openrgb-dev -- ./openrgb
+```
+
 ## Not done / unknown
 
 - The one-off `04 12` write (probably the button table) is not decoded or used.
 - Bytes 61, 85, 116 are not understood (constant in all captures).
 - The DPI encoding is verified for 200-5000 (steps of 100) and 5500-10000 (steps of 500).
 - Whether writes wear the mouse's flash. Avoid streaming effects through it.
-- OpenRGB controller: not started.
 
 ## License
 

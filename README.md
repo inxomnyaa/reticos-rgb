@@ -12,7 +12,7 @@ official driver. Groundwork for OpenRGB support.
 
 ![replicator.py showing the mouse profile as a color tree](docs/replicator.png)
 
-> **Status:** tested on one mouse (Windows 11 and Bazzite). Writes replace the whole profile on the mouse.
+> **Status:** tested on one mouse (Windows 10 and Bazzite). Writes replace the whole profile on the mouse.
 > Every write saves a backup first, but use at your own risk. Not affiliated with Speedlink or Sinowealth.
 
 ## What it can set

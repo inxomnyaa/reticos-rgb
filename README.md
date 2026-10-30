@@ -82,3 +82,7 @@ The keys for `set` are listed at the top of `replicator.py`.
 ## License
 
 MIT (see `LICENSE`).
+
+## Credits
+
+Reverse-engineered, written and tested by inxomnyaa together with [Claude](https://claude.ai) (Anthropic), which analyzed the USB capture and wrote the Python tools. All hardware testing was done by hand on a real mouse.

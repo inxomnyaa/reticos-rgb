@@ -27,6 +27,7 @@ Colorful steady lights 5 zones: front, behind the wheel, in front of the DPI but
 | File | Purpose |
 |---|---|
 | `replicator.py` | Show the profile as a tree (colored swatches) and change settings |
+| `bkm.py` | Read a profile exported by the Reticos software (`.bkm`) and print the matching `replicator.py set` command |
 | `selftest.py` | Guided hardware test: writes one change at a time and asks you what the mouse did |
 | `diag.py` | Linux diagnostic: lists hidraw nodes and what each probe returns |
 | `linux/hid.py` | Minimal hidraw replacement for the `hid` module (Linux only, no pip needed) |
@@ -44,8 +45,11 @@ python replicator.py set effect=cs cs.colors=ff0000,ff8000,ffff00,00ff00,00ffff 
 python replicator.py set effect=cs cs.colors=ff0000,ff8000,ffff00,00ff00,00ffff --apply # write
 python replicator.py set lights=toggle poll=1000 dpi4=3200 --apply
 python replicator.py restore reticos_backup_XXXX.bin --apply
+python bkm.py halloween.bkm                            # decode a vendor profile file, prints a replicator.py command
 python selftest.py --list
 ```
+
+![bkm.py decoding a vendor profile and printing the replicator.py command](docs/bkm.png)
 
 **Linux:** no pip install. Either install the udev rule (`sudo cp 70-reticos.rules /etc/udev/rules.d/`,
 `sudo udevadm control --reload-rules`, replug the mouse) or use sudo:
